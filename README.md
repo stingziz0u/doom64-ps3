@@ -63,9 +63,8 @@ Two layouts, selectable under **Options → Gamepad**:
 In menus: D-pad or left stick to move, left/right to change a value, Cross to
 select, Circle or Start to go back.
 
-The Gamepad screen also has the stick deadzone (with a live stick readout) and
-optional test buttons: L3 god mode, R3 all weapons/keys, Triangle exit level
-(in the Modern layout, hold L2 and press those).
+The Gamepad screen also has the stick deadzone, with a live stick readout.
+Cheats are in the **Features** menu.
 
 ---
 
@@ -73,7 +72,8 @@ optional test buttons: L3 god mode, R3 all weapons/keys, Triangle exit level
 
 Like on the N64, the game saves your progress **when you finish a level** (and
 you can always use passwords). Saves and settings live in
-`/dev_hdd0/data/doom64/`. Hold Start on the legal screen at boot to manage them.
+`/dev_hdd0/data/doom64/` (`doom64.sav` and `doom64.stg`). To back them up,
+copy that folder over FTP or to a USB drive; delete it to start from scratch.
 
 ---
 
@@ -93,8 +93,13 @@ make check-toolchain
 make clean && make
 ```
 
-Install `doom64cell.gnpdrm.pkg` on the console. It appears in the XMB as
-**Doom 64** (title ID `DOOM64CEL`).
+This produces `doom64-ps3-1.0.pkg`. It appears in the XMB as **Doom 64**
+(title ID `DOOM64CEL`).
+
+`make clean && make DEBUG=1` builds `doom64debug.pkg` instead: the same game
+plus test buttons in Options → Gamepad (L3 god mode, R3 all weapons/keys,
+Triangle exit level; in the Modern layout, hold L2 and press those). Both
+builds share the title ID, so installing one replaces the other.
 
 If something goes wrong, the log is at
 `/dev_hdd0/game/DOOM64CEL/USRDIR/doom64_log.txt`.

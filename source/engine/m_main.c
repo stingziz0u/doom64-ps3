@@ -231,14 +231,14 @@ menuitem_t Menu_Volume[NUM_MENU_VOLUME] =
 		{ 6, 82, 140 }, // Return
 	};
 
-#define NUM_MENU_MOVEMENT 5
+#define NUM_MENU_MOVEMENT 4
 menuitem_t Menu_Movement[NUM_MENU_MOVEMENT] =
 	{
 		{ 52, 82, 60 }, // Motion Bob
 		{ 43, 82, 100 }, // Sensitivity
 		{ 12, 82, 140 }, // Autorun
-		{ 95, 82, 160 }, // Rumble
-		{ 6, 82, 180 }, // Return
+		// PS3: Rumble fuera del menu en 1.0 (vibracion siempre apagada)
+		{ 6, 82, 160 }, // Return
 	};
 
 #define NUM_MENU_VIDEO 7
@@ -403,7 +403,7 @@ void M_ResetSettings(doom64_settings_t *s) {
 	s->MapStats = 1;
 	s->HUDmargin = 20;
 	s->ColoredHUD = 0;
-	s->Quality = 2;
+	s->Quality = q_medium;
 	s->FpsUncap = 1;
 	s->PlayDeadzone = 0;
 	s->Interpolate = 0;
@@ -413,6 +413,10 @@ void M_ResetSettings(doom64_settings_t *s) {
 	if (I_CheckControllerPak() == 0) {
 		I_ReadPakSettings(s);
 	}
+
+	s->Rumble = 0;           // PS3: sin vibracion en 1.0
+	if (s->Quality > q_medium)
+		s->Quality = q_medium; // PS3: Ultra = Medium sin bump maps; se saco
 
 	I_InitRumble((i_rumble_pak_t)s->Rumble);
 
@@ -1618,8 +1622,10 @@ int M_MenuTicker(void)
 					int d = M_CycleDir(buttons, oldbuttons, truebuttons);
 					if (d) {
 					S_StartSound(NULL, sfx_switch2);
-					global_render_state.quality = (global_render_state.quality + NUM_QUALITY + d) % NUM_QUALITY;
-					menu_settings.Quality = (menu_settings.Quality + NUM_QUALITY + d) % NUM_QUALITY;
+					/* PS3: solo Low / Medium. Ultra solo agregaba bump
+					 * mapping, que aca no hay (sin WAD de bump maps). */
+					menu_settings.Quality = (menu_settings.Quality + 2 + d) % 2;
+					global_render_state.quality = menu_settings.Quality;
 					global_render_state.context_change = 1;
 					return ga_nothing;
 					}

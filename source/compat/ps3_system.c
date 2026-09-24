@@ -684,6 +684,7 @@ int I_ReadPakSettings(doom64_settings_t *s)
     }
     memcpy(s, &tmp, sizeof(tmp));
     s->runintroduction = false;
+    if (s->Quality > q_medium) s->Quality = q_medium;   /* Ultra ya no existe */
     global_render_state.quality = s->Quality;
     global_render_state.fps_uncap = s->FpsUncap;
     s_had_settings = 1;
