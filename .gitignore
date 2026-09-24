@@ -40,3 +40,9 @@ Thumbs.db
 *.orig
 *.rej
 warnings.txt
+
+# Solo desarrollo
+build.txt
+mk_romconv.py
+tools/mk_wess.py
+tools/hosttest/
