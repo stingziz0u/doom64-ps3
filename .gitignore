@@ -1,0 +1,42 @@
+# Build output
+*.o
+*.a
+*.d
+*.elf
+*.self
+*.pkg
+build/
+pkgfiles/USRDIR/VERSION.TXT
+
+# Host test builds
+tools/hosttest/hosttest
+tools/hosttest/hostflow
+tools/hosttest/audiotest
+tools/hosttest/out/
+tools/hosttest/*.o
+
+# Game data: never commit it
+*.z64
+*.v64
+*.n64
+*.wad
+*.WAD
+*.adpcm
+*.lmp
+*.wmd
+*.wsd
+*.wdd
+doom64_log.txt
+
+# Editor / OS junk
+*~
+*.swp
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Patch leftovers and local notes
+*.patch
+*.orig
+*.rej
+warnings.txt
